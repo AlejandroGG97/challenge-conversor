@@ -1,4 +1,4 @@
-package consumo.api;
+package peticion.datos;
 
 public class Peticion {
 }
