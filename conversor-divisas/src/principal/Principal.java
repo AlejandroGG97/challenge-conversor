@@ -3,6 +3,7 @@ package principal;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import tasa.cambio.TasaCambio;
 
 import java.io.IOException;
 import java.net.URI;
@@ -31,6 +32,18 @@ public class Principal {
             HttpResponse<String> respuesta = cliente.send(solicitud, HttpResponse.BodyHandlers.ofString());
 
             System.out.println(respuesta.body());
+
+            TasaCambio res = gson.fromJson(respuesta.body(), TasaCambio.class);
+
+            System.out.println(res.getBase());
+
+            //TasaCambioRec pet = gson.fromJson(respuesta.body(), TasaCambioRec.class);
+
+            //System.out.println(pet);
+
+            //TasaCambio res = new TasaCambio(pet);
+
+            //System.out.println(res.getTasaCambio());
 
         }catch (Exception e){
             System.out.println(e.getMessage());
