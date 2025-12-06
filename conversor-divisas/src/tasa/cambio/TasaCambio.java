@@ -4,14 +4,12 @@ import com.google.gson.annotations.SerializedName;
 
 public class TasaCambio {
 
-    @SerializedName("base_code")
+    //@SerializedName("base_code")
     private String base;
-    @SerializedName("target_code")
+    //@SerializedName("target_code")
     private String objetivo;
-
-    private Double tasaCambio;
-
-    private Double Conversion;
+    //@SerializedName("conversion_rate")
+    private Float tasaCambio;
 
     public String getBase() {
         return base;
@@ -29,19 +27,11 @@ public class TasaCambio {
         this.objetivo = objetivo;
     }
 
-    public Double getTasaCambio() {
+    public Float getTasaCambio() {
         return tasaCambio;
     }
 
-    public void setTasaCambio(Double tasaCambio) {
+    public void setTasaCambio(Float tasaCambio) {
         this.tasaCambio = tasaCambio;
-    }
-
-    public Double getConversion() {
-        return Conversion;
-    }
-
-    public void setConversion(Double conversion) {
-        Conversion = conversion;
     }
 }
