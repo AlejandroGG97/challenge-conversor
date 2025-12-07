@@ -1,53 +1,44 @@
 package principal;
-
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import tasa.cambio.TasaCambio;
-import tasa.cambio.TasaR;
-
+import conexion.api.ConexionApi;
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import java.util.Scanner;
 
 public class Principal {
     public static void main(String[] args) throws IOException, InterruptedException{
 
-        Gson gson = new Gson();
+        ConexionApi conecta = new ConexionApi();
+        InterfazU menu = new InterfazU();
+        Scanner scan = new Scanner(System.in);
 
+        String base = "";
+        String objetivo = "";
+        String opcion = "";
+        double can = 0.0;
+        double rateD = 0.0;
+        double resultado = 0;
 
+            menu.inicio();
+            base = scan.nextLine();
+        System.out.println(base);
 
-        try {
+            if (base != "salir") {
 
-            HttpClient cliente = HttpClient.newHttpClient();
+                    menu.objetivo();
+                    objetivo = scan.nextLine();
 
-            HttpRequest solicitud = HttpRequest.newBuilder()
-                    .uri(URI.create("https://v6.exchangerate-api.com/v6/4068694d72e3b8614c4e06fc/pair/USD/MXN"))
-                    .build();
+                    menu.cantidad();
+                    can = scan.nextDouble();
 
-            HttpResponse<String> respuesta = cliente.send(solicitud, HttpResponse.BodyHandlers.ofString());
+                    rateD = conecta.conexion(base, objetivo);
 
-            String json = respuesta.body();
+                    resultado = can * rateD;
 
-            //TasaCambio req = gson.fromJson(json, TasaCambio.class);
-            TasaR req = gson.fromJson(json,TasaR.class);
+                    System.out.println("****************************************************");
+                    System.out.print(can + " ");
+                    System.out.print(base + " EQUIVALE A " + resultado + " ");
+                    System.out.println(objetivo);
+                    System.out.println("****************************************************");
 
-            //System.out.println(req.target_code());
-            System.out.println(req);
-
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-
-        System.out.println("""
-                ************************************
-                Bienvenido/a al conversor de Monedas
-                
-                1)Dòlar ---------> Peso Mexicano
-                
-                """);
-
+            }
     }
 }
